@@ -1,7 +1,7 @@
 from typing import Sequence, Optional
 
 from src.repositories.resumes import ResumeRepository
-from src.schemas.resume import ResumeCreate, ResumeUpdate
+from src.schemas.resume import ResumeCreate, ResumeUpdate, ResumeBase
 from src.models.resume import Resume
 
 
@@ -19,7 +19,13 @@ class ResumeService:
     async def create_resume(self, data: ResumeCreate, user_id: int) -> Resume:
         return await self.resume_repo.create(title=data.title, content=data.content, user_id=user_id)
 
-    async def update_resume(self,resume_id: int, data: ResumeUpdate, user_id: int) -> Optional[Resume]:
+    async def update_resume(self,resume_id: int, data: ResumeBase, user_id: int) -> Optional[Resume]:
+        resume = await self.resume_repo.get_by_id(resume_id)
+        if not resume or resume.user_id != user_id:
+            return None
+        return await self.resume_repo.update(resume_id, title=data.title, content=data.content)
+
+    async def partial_update_resume(self,resume_id: int, data: ResumeUpdate, user_id: int) -> Optional[Resume]:
         resume = await self.resume_repo.get_by_id(resume_id)
         if not resume or resume.user_id != user_id:
             return None
