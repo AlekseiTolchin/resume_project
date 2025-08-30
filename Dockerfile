@@ -19,5 +19,8 @@ RUN poetry install --no-ansi
 
 COPY ./src /app/src
 COPY .env /app/
+COPY alembic.ini /app/
+COPY entrypoint.sh /app/
+RUN chmod +x /app/entrypoint.sh
 
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+ENTRYPOINT ["/app/entrypoint.sh"]
