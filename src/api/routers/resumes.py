@@ -6,7 +6,7 @@ from src.core.auth_dependencies import get_current_user
 from src.core.dependencies import get_resume_service
 from src.models.user import User
 from src.services.resumes import ResumeService
-from src.schemas.resume import ResumeCreate, ResumeRead, ResumeUpdate, ResumeBase
+from src.schemas.resume import ResumeCreate, ResumeRead, ResumeUpdate, ResumeBase, ImproveResumeResponse, ImproveResumeRequest
 
 
 router = APIRouter(
@@ -93,3 +93,17 @@ async def delete_resume(
             status_code=status.HTTP_404_NOT_FOUND,
             detail='Resume not found or forbidden'
         )
+
+
+@router.post('/{resume_id}/improve', response_model=ImproveResumeResponse)
+async def improve_resume_endpoint(
+    resume_id: int,
+    req: ImproveResumeRequest,
+    service: ResumeService = Depends(get_resume_service),
+    current_user: User = Depends(get_current_user)
+):
+    resume = await service.get_resume(resume_id)
+    if not resume or resume.user_id != current_user.id:
+        raise HTTPException(status_code=404, detail="Resume not found")
+    improved = await service.improve_resume(resume)
+    return ImproveResumeResponse(content=improved)

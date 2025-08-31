@@ -21,3 +21,11 @@ class ResumeRead(ResumeBase):
 class ResumeUpdate(BaseModel):
     title: Optional[str] = None
     content: Optional[str] = None
+
+
+class ImproveResumeRequest(BaseModel):
+    content: str
+
+
+class ImproveResumeResponse(BaseModel):
+    content: str

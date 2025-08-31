@@ -8,7 +8,7 @@ from src.core.dependencies import get_auth_service
 from src.services.auth import AuthService
 
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/auth/token')
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/api/auth/token')
 
 
 async def get_current_user(token: str = Depends(oauth2_scheme), service: AuthService = Depends(get_auth_service)):
