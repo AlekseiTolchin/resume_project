@@ -13,7 +13,7 @@ class AuthService:
     async def authenticate(self, email: str, password: str):
         user = await self.user_repo.get_by_email(email)
         if not user or not verify_password(password, user.hashed_password):
-            return False
+            return None
         return user
 
     def create_token(self, user):

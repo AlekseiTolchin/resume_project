@@ -15,7 +15,7 @@ router = APIRouter(
 )
 
 
-@router.post('/', response_model=ResumeCreate)
+@router.post('/', response_model=ResumeRead)
 async def create_resume(
         resume: ResumeCreate,
         service: ResumeService = Depends(get_resume_service),

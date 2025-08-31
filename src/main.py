@@ -11,12 +11,8 @@ app.include_router(resumes_router)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # адрес вашего фронта
+    allow_origins=["http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.get('/')
-async def test():
-    return {'status': 'ok'}

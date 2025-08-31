@@ -19,12 +19,13 @@ async def get_current_user(token: str = Depends(oauth2_scheme), service: AuthSer
     )
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
-        user_email = payload.get('sub')
-        if user_email is None:
+        user_id = payload.get('sub')
+        if user_id is None:
             raise credentials_exception
+        user_id = int(user_id)
     except InvalidTokenError:
         raise credentials_exception
-    user = await service.user_repo.get_by_email(user_email)
+    user = await service.user_repo.get_by_id(user_id)
     if user is None:
         raise credentials_exception
     return user

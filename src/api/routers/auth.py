@@ -7,7 +7,6 @@ from fastapi.security import OAuth2PasswordRequestForm
 from src.core.dependencies import get_auth_service
 from src.config import ACCESS_TOKEN_EXPIRE_MINUTES
 from src.core.security import create_access_token
-from src.core.auth_dependencies import get_current_user
 from src.services.auth import AuthService
 from src.schemas.user import UserCreate, UserRead
 from src.schemas.token import Token
@@ -48,11 +47,6 @@ async def login_for_access_token(
         )
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        {'sub': user.email}, expires_delta=access_token_expires
+        {'sub': str(user.id), 'email': user.email}, expires_delta=access_token_expires
     )
     return Token(access_token=access_token, token_type='bearer')
-
-
-@router.get('/read_current_user', response_model=UserRead)
-async def read_current_user(user: str = Depends(get_current_user)):
-    return UserRead.model_validate(user)
