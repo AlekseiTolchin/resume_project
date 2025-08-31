@@ -14,7 +14,7 @@ from src.schemas.token import Token
 
 
 router = APIRouter(
-    prefix='/auth',
+    prefix='/api/auth',
     tags=['auth']
 )
 

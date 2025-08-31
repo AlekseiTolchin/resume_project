@@ -34,7 +34,7 @@ async def get_resumes(
     return [ResumeRead.model_validate(r) for r in resumes]
 
 
-@router.get('{resume_id}', response_model=ResumeRead)
+@router.get('/{resume_id}', response_model=ResumeRead)
 async def get_resume(
         resume_id: int,
         service: ResumeService = Depends(get_resume_service),
@@ -46,8 +46,7 @@ async def get_resume(
             status_code=status.HTTP_404_NOT_FOUND,
             detail='Resume not found'
         )
-    resumes = await service.get_resumes_for_user(current_user.id)
-    return [ResumeRead.model_validate(r) for r in resumes]
+    return ResumeRead.model_validate(resume)
 
 
 @router.put('/{resume_id}', response_model=ResumeRead)
