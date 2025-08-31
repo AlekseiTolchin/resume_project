@@ -6,7 +6,14 @@ from src.core.auth_dependencies import get_current_user
 from src.core.dependencies import get_resume_service
 from src.models.user import User
 from src.services.resumes import ResumeService
-from src.schemas.resume import ResumeCreate, ResumeRead, ResumeUpdate, ResumeBase, ImproveResumeResponse, ImproveResumeRequest
+from src.schemas.resume import (
+    ResumeCreate,
+    ResumeRead,
+    ResumeUpdate,
+    ResumeBase,
+    ImproveResumeResponse,
+    ImproveResumeRequest
+)
 
 
 router = APIRouter(
