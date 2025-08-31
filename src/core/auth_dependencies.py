@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordBearer
 import jwt
 from jwt import InvalidTokenError
 
-from src.config import SECRET_KEY, ALGORITHM
+from src.config import settings
 from src.core.dependencies import get_auth_service
 from src.services.auth import AuthService
 
@@ -18,7 +18,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme), service: AuthSer
         headers={'WWW-Authenticate': 'Bearer'},
     )
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=settings.ALGORITHM)
         user_id = payload.get('sub')
         if user_id is None:
             raise credentials_exception

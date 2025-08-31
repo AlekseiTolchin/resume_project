@@ -8,13 +8,13 @@ from alembic import context
 from src.core.database import Base
 from src.models.resume import Resume
 from src.models.user import User
-from src.config import SYNC_DATABASE_URL
+from src.config import settings
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 
-config.set_main_option('sqlalchemy.url', SYNC_DATABASE_URL)
+config.set_main_option('sqlalchemy.url', settings.SYNC_DATABASE_URL)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
