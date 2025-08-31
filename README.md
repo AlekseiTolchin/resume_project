@@ -33,6 +33,10 @@ cd frontend
 ```
 
 ```
+npm install
+```
+
+```
 npm start
 ```
 Ссылки для тестирования:  
