@@ -43,7 +43,8 @@ npm start
 http://localhost:8000/docs/ - документация API  
 http://localhost:3000/ - веб-интерфейс
 
-Для запуска тестов из корневой директории выполнить команду:
+Для запуска тестов выполнить команду:
+
 ```
-pytest
+docker-compose exec api pytest
 ```
