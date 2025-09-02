@@ -22,7 +22,7 @@ router = APIRouter(
 )
 
 
-@router.post('/', response_model=ResumeRead)
+@router.post('/', response_model=ResumeRead, status_code=status.HTTP_201_CREATED)
 async def create_resume(
         resume: ResumeCreate,
         service: ResumeService = Depends(get_resume_service),
