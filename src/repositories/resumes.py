@@ -24,7 +24,7 @@ class ResumeRepository:
         )
         return result.scalars().all()
 
-    async def create(self, title: str, content: str, user_id: Optional[int] = None) -> Resume:
+    async def create(self, title: str, content: str, user_id: int) -> Resume:
         resume = Resume(title=title, content=content)
         if user_id:
             resume.user_id = user_id
